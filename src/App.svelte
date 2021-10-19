@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { onMount } from "svelte";
     import { LogoHacktoberfest } from "./assets/logos";
     import Partners from "./lib/Partners.svelte";
@@ -15,7 +15,7 @@
 
     onMount(async () => {});
 
-    const sendReaction = async (reaction) => {
+    const sendReaction = async (reaction: number) => {
         if (logs.length >= 144) {
             logs.pop();
         }
