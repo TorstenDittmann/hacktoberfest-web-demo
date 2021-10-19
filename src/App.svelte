@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { Appwrite } from "appwrite";
     import { onMount } from "svelte";
     import { LogoHacktoberfest } from "./assets/logos";
     import Partners from "./lib/Partners.svelte";
@@ -14,40 +13,13 @@
 
     let logs = [];
 
-    const sdk = new Appwrite();
-
-    sdk.setEndpoint("https://demo.appwrite.io/v1").setProject("616ec469790ef");
-
-    onMount(async () => {
-        try {
-            await sdk.account.get();
-        } catch (error) {
-            await sdk.account.createAnonymousSession();
-        }
-
-        sdk.subscribe<{ emoji: number }>(
-            "collections.616ec59046be7.documents",
-            (event) => {
-                if (logs.length >= 144) {
-                    logs.pop();
-                }
-                logs = [event.payload.emoji, ...logs];
-            }
-        );
-    });
+    onMount(async () => {});
 
     const sendReaction = async (reaction: number) => {
-        try {
-            await sdk.database.createDocument(
-                "616ec59046be7",
-                {
-                    emoji: reaction,
-                },
-                ["*"]
-            );
-        } catch (error) {
-            console.log(error);
+        if (logs.length >= 144) {
+            logs.pop();
         }
+        logs = [reaction, ...logs];
     };
 </script>
 
