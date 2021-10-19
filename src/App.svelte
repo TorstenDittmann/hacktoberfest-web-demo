@@ -4,6 +4,7 @@
     import { LogoHacktoberfest } from "./assets/logos";
     import Partners from "./lib/Partners.svelte";
 
+    const COLLECTION = "616ec59046be7";
     const reactions = {
         1: "🚀",
         2: "👍",
@@ -26,7 +27,7 @@
         }
 
         sdk.subscribe<{ emoji: number }>(
-            "collections.616ec59046be7.documents",
+            "collections." + COLLECTION + ".documents",
             (event) => {
                 if (logs.length >= 144) {
                     logs.pop();
@@ -39,7 +40,7 @@
     const sendReaction = async (reaction: number) => {
         try {
             await sdk.database.createDocument(
-                "616ec59046be7",
+                COLLECTION,
                 {
                     emoji: reaction,
                 },
